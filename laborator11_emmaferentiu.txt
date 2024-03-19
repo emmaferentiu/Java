@@ -1,0 +1,474 @@
+//Implementați o aplicație Java care folosește GridLayout pentru aranjarea în pagină a componentelor unei aplicații de
+//calcul (TextField pt. intrare/ieșire, butoane pentru numere, operații matematice, ștergerea ecranului, etc.).
+//FERENTIU EMMA LUCIANA
+import java.awt.Color;
+import java.awt.GridLayout;
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import java.awt.Button;
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.TextArea;
+import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+public class c extends JPanel {
+private static final long serialVersionUID = 1L;
+public c(String title){
+super(new GridLayout(5, 2));
+setBackground(Color.cyan);
+setBorder(BorderFactory.createTitledBorder(title));
+Button f;
+Button d;
+Button buton;
+f=new Button("Introduceti 2 numere in campurile de mai jos");
+
+buton = new Button("Eliberează");
+
+buton.addActionListener(new ActionListener() {
+    
+    public void actionPerformed(ActionEvent e) {
+        removeAll(); 
+        setLayout(new GridLayout(1, 1)); 
+        
+        
+    }
+});
+buton.setBackground(Color.YELLOW);
+add(buton);
+f.setBackground(Color.GREEN);
+add(f);
+//add(f);
+TextField tf1, tf2;
+Button b,c,g;
+TextArea ta1,ta2,ta3;
+ tf1 = new TextField();
+ tf1.setFont(new Font("SansSerif", Font.PLAIN, 10));
+ tf1.setBounds(50, 50, 100, 30);
+ tf2 = new TextField();
+ tf2.setFont(new Font("SansSerif", Font.PLAIN, 10));
+ tf2.setBounds(50, 50, 100, 30);
+ //add(tf1);
+ ta1 = new TextArea();
+ b=new Button("Suma");
+ b.setBackground(Color.PINK);
+ b.setBounds(200, 50, 50, 30);
+ b.addActionListener(new ActionListener() {
+ public void actionPerformed(ActionEvent ae) {
+         String a=tf1.getText();
+         String b=tf2.getText();
+         int suma=Integer.parseInt(a)+Integer.parseInt(b);
+ ta1.append(String.valueOf(suma)+'\n');
+ }
+ });
+ 
+ 
+ ta1.setBounds(50, 100, 100, 100);
+ add(tf1);
+ add(tf2);
+ add(b);
+ add(ta1);
+ ta2 = new TextArea();
+ c=new Button("Diferenta");
+ c.setBackground(Color.RED);
+ c.setBounds(200, 50, 50, 30);
+ c.addActionListener(new ActionListener() {
+ public void actionPerformed(ActionEvent ae) {
+         String a=tf1.getText();
+         String b=tf2.getText();
+         int suma=Integer.parseInt(a)-Integer.parseInt(b);
+ ta2.append(String.valueOf(suma)+'\n');
+ }
+ });
+ add(c);
+ add(ta2);
+ ta3 = new TextArea();
+ g=new Button("Produs");
+ g.setBackground(Color.BLUE);
+ g.setBounds(200, 50, 50, 30);
+ g.addActionListener(new ActionListener() {
+ public void actionPerformed(ActionEvent ae) {
+         String a=tf1.getText();
+         String b=tf2.getText();
+         int suma=Integer.parseInt(a)*Integer.parseInt(b);
+ ta3.append(String.valueOf(suma)+'\n');
+ }
+ });
+ add(g);
+ add(ta3);
+
+}
+public static void main(String args[ ]) {
+ JFrame frame = new JFrame("Aplicatie matematica");
+ String title = "Calcule cu 2 numere";
+ frame.add(new c(title));
+ frame.pack();
+ //frame.setSize(300, 200);
+ frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ frame.setVisible(true);
+ }
+}
+..................................................................................................................................................................
+//Implementați o aplicație Java care folosește GridBagLayout pentru aranjarea în pagină a componentelor unei aplicații de
+//calcul (TextField pt. intrare/ieșire, butoane pentru numere, operații matematice, ștergerea ecranului, etc.).
+//FERENTIU EMMA LUCIANA
+import java.awt.Color;
+import java.awt.GridLayout;
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import java.awt.Button;
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.TextArea;
+import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+public class c extends JPanel {
+private static final long serialVersionUID = 1L;
+public c(String title){
+        setBackground(Color.cyan);
+        setLayout(new GridBagLayout());
+        setBorder(BorderFactory.createTitledBorder(title));
+        GridBagConstraints constraints = new GridBagConstraints();
+          constraints.fill = GridBagConstraints.BOTH;
+      constraints.insets = new Insets(2, 6, 2, 2);
+      
+   
+Button f;
+Button d;
+Button buton;
+f=new Button("Introduceti 2 numere in campurile de mai jos");
+
+buton = new Button("Eliberează");
+
+buton.addActionListener(new ActionListener() {
+    
+    public void actionPerformed(ActionEvent e) {
+        removeAll(); 
+        
+        
+        
+    }
+});
+constraints.gridx = 0;
+constraints.gridy = 0;
+buton.setBackground(Color.YELLOW);
+add(buton,constraints);
+f.setBackground(Color.GREEN);
+constraints.gridx = 1;
+constraints.gridy = 0;
+add(f, constraints);
+//add(f);
+TextField tf1, tf2;
+Button b,c,g;
+TextArea ta1,ta2,ta3;
+ tf1 = new TextField();
+ tf1.setFont(new Font("SansSerif", Font.PLAIN, 10));
+ tf1.setBounds(50, 50, 100, 30);
+ tf2 = new TextField();
+ tf2.setFont(new Font("SansSerif", Font.PLAIN, 10));
+ tf2.setBounds(50, 50, 100, 30);
+ //add(tf1);
+ ta1 = new TextArea();
+ b=new Button("Suma");
+ b.setBackground(Color.PINK);
+ b.setBounds(200, 50, 50, 30);
+ b.addActionListener(new ActionListener() {
+ public void actionPerformed(ActionEvent ae) {
+         String a=tf1.getText();
+         String b=tf2.getText();
+         int suma=Integer.parseInt(a)+Integer.parseInt(b);
+ ta1.append(String.valueOf(suma)+'\n');
+ }
+ });
+ 
+ 
+ ta1.setBounds(50, 100, 100, 100);
+ constraints.gridx = 0;
+ constraints.gridy = 1;
+ add(tf1, constraints);
+ constraints.gridx = 1;
+ constraints.gridy = 1;
+ add(tf2, constraints);
+ constraints.gridx = 0;
+ constraints.gridy = 2;
+ add(b, constraints);
+ constraints.gridx = 1;
+ constraints.gridy = 2;
+ add(ta1, constraints);
+ ta2 = new TextArea();
+ c=new Button("Diferenta");
+ c.setBackground(Color.RED);
+ c.setBounds(200, 50, 50, 30);
+ c.addActionListener(new ActionListener() {
+ public void actionPerformed(ActionEvent ae) {
+         String a=tf1.getText();
+         String b=tf2.getText();
+         int suma=Integer.parseInt(a)-Integer.parseInt(b);
+ ta2.append(String.valueOf(suma)+'\n');
+ }
+ });
+ constraints.gridx = 0;
+ constraints.gridy = 3;
+ add(c, constraints);
+ constraints.gridx = 1;
+ constraints.gridy = 3;
+ add(ta2, constraints);
+ ta3 = new TextArea();
+ g=new Button("Produs");
+ g.setBackground(Color.BLUE);
+ g.setBounds(200, 50, 50, 30);
+ g.addActionListener(new ActionListener() {
+ public void actionPerformed(ActionEvent ae) {
+         String a=tf1.getText();
+         String b=tf2.getText();
+         int suma=Integer.parseInt(a)*Integer.parseInt(b);
+ ta3.append(String.valueOf(suma)+'\n');
+ }
+ });
+ constraints.gridx = 0;
+ constraints.gridy = 4;
+ add(g, constraints);
+ constraints.gridx = 1;
+ constraints.gridy = 4;
+ add(ta3, constraints);
+
+
+}
+public static void main(String args[ ]) {
+ JFrame frame = new JFrame("Aplicatie matematica");
+ String title = "Calcule cu 2 numere";
+ frame.add(new c(title));
+ 
+ frame.setSize(900, 900);
+ frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ frame.setVisible(true);
+ }
+}
+...................................................................................................................................................
+import java.awt.Color;
+import java.awt.GridLayout;
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+
+import java.awt.BorderLayout;
+import java.awt.Button;
+import java.awt.Canvas;
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.TextArea;
+import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.Panel;
+import javax.swing.JLabel;
+import javax.swing.JTabbedPane;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JComboBox;
+//3. Implementați o aplicație de tip TabbedView care afișează în fiecare panou grafic:
+//- o zonă de desenare
+//- componente pentru selectarea tipului de font, a mărimii de font și a culorii textului
+//- componente pentru alegerea unei forme geometrice (dintr-un set predefinit) și a mărimii laturii / razei (după caz)
+class Panel_Canvas extends Panel {
+private static final long serialVersionUID = 1L;
+public Panel_Canvas( ) { }
+public void paint(Graphics g) {
+ int width = getWidth();
+ int height = getHeight();
+ g.setColor(Color.magenta);
+ g.drawOval(0, 0, width, height);
+ }
+} 
+public class c {
+
+         
+            public static void main(String[] args) {
+                JFrame frame = new JFrame("Aplicație de tip Tabbed View");
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+                JTabbedPane tabbedPane = new JTabbedPane();
+
+                Panel_Canvas tab1 = new Panel_Canvas();
+                JPanel tab2 = new JPanel();
+                JPanel tab3 = new JPanel();
+                JRadioButton option1 = new JRadioButton("Arial");
+                JRadioButton option2 = new JRadioButton("Times New Roman");
+                JRadioButton option3 = new JRadioButton("Courier New");
+
+                // Gruparea radio button-urilor pentru a permite selectarea unei singure opțiuni
+                ButtonGroup buttonGroup = new ButtonGroup();
+                buttonGroup.add(option1);
+                buttonGroup.add(option2);
+                buttonGroup.add(option3);
+                JButton button = new JButton("Text de proba");
+                // ActionListener pentru a gestiona acțiunile la selectarea unei opțiuni
+                ActionListener actionListener = new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        JRadioButton selectedRadioButton = (JRadioButton) e.getSource();
+                        String selectedOption = selectedRadioButton.getText();
+                       // System.out.println("Opțiunea selectată: " + selectedOption);
+                        Font font = new Font(selectedOption, Font.PLAIN, 12); // Fontul "Arial", stilul normal, mărimea 12
+                        button.setFont(font);
+                    }
+                };
+
+               
+
+                option1.addActionListener(actionListener);
+                option2.addActionListener(actionListener);
+                option3.addActionListener(actionListener);
+
+                tab2.add(option1);
+                tab2.add(option2);
+                tab2.add(option3);
+                tab2.add(button);
+                JRadioButton option4 = new JRadioButton("Cerc");
+                JRadioButton option5 = new JRadioButton("Patrat");
+                JRadioButton option6 = new JRadioButton("Triunghi");
+                ButtonGroup buttonGroup2 = new ButtonGroup();
+                buttonGroup.add(option6);
+                buttonGroup.add(option4);
+                buttonGroup.add(option5);
+                // ActionListener pentru a gestiona acțiunile la selectarea unei opțiuni
+                ActionListener actionListener2 = new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        JRadioButton selectedRadioButton = (JRadioButton) e.getSource();
+                        String selectedOption = selectedRadioButton.getText();
+                        
+                       
+                    }
+                };
+
+               
+
+                option4.addActionListener(actionListener);
+                option5.addActionListener(actionListener);
+                option6.addActionListener(actionListener);
+                tab3.add(option4);
+                tab3.add(option5);
+                tab3.add(option6);
+                tabbedPane.addTab("Tab 1", tab1);
+                tabbedPane.addTab("Tab 2", tab2);
+                tabbedPane.addTab("Tab 3", tab3);
+
+                frame.add(tabbedPane, BorderLayout.CENTER);
+
+                frame.setSize(400, 300);
+                frame.setVisible(true);
+            }
+        }
+
+
+.....................................................................................................................
+import java.awt.Color;
+import java.awt.GridLayout;
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import java.awt.Button;
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.TextArea;
+import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+//4. Creați o aplicație ce preia din două câmpuri text (TextField) numele vostru și grupa din care faceți parte și afișează
+//această informație într-o etichetă de culoare RGB (122,123,129).
+//FERENTIU EMMA LUCIANA
+public class c extends JPanel {
+private static final long serialVersionUID = 1L;
+public c(String title){
+super(new GridLayout(5, 2));
+setBackground(Color.cyan);
+setBorder(BorderFactory.createTitledBorder(title));
+Button f;
+Button d;
+Button buton;
+f=new Button("Introduceti numele");
+
+
+f.setBackground(Color.GREEN);
+add(f);
+d=new Button("Introduceti grupa");
+
+
+d.setBackground(Color.GREEN);
+//add(d);
+//add(f);
+TextField tf1, tf2;
+Button b,c,g;
+TextArea ta1,ta2,ta3;
+ tf1 = new TextField();
+ tf1.setFont(new Font("SansSerif", Font.PLAIN, 10));
+ tf1.setBounds(50, 50, 100, 30);
+ tf2 = new TextField();
+ tf2.setFont(new Font("SansSerif", Font.PLAIN, 10));
+ tf2.setBounds(50, 50, 100, 30);
+ //add(tf1);
+ ta1 = new TextArea();
+ b=new Button("Afisati");
+ b.setBackground(Color.PINK);
+ b.setBounds(200, 50, 50, 30);
+ b.addActionListener(new ActionListener() {
+ public void actionPerformed(ActionEvent ae) {
+         String a=tf1.getText() + " " + tf2.getText();
+         ta1.append(a);
+ }
+ });
+ 
+ 
+ ta1.setBounds(50, 100, 100, 100);
+ add(tf1);
+ add(d);
+ add(tf2);
+ add(b);
+
+ 
+ Color rgbColor = new Color(122, 123, 129);
+ ta1.setBackground(rgbColor);
+ add(ta1);
+}
+public static void main(String args[ ]) {
+ JFrame frame = new JFrame("Aplicatie matematica");
+ String title = "Calcule cu 2 numere";
+ frame.add(new c(title));
+ frame.pack();
+ frame.setSize(300, 200);
+ frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ frame.setVisible(true);
+ }
+}
+

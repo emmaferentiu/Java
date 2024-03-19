@@ -1,0 +1,309 @@
+//Scrieți o clasă Methods in care să aveți 3 metode: o metodă cu număr variabil de parametri de tip intreg, care
+//returnează media aritmetică a parametrilor; o altă metodă în care să definiți un tablou unidimensional de n
+//numere de tip double (n fiind parametrul metodei și care va fi citit în main() de la tastatură), elementele acestuia
+//vor primi valori generate aleator și metoda va returna acest tablou; o metodă statică ce primește ca parametru
+//un tablou de caractere, convertește caracterele respective în majuscule și formează din acest șir un obiect
+//String, pe care îl returnează. Din metoda main(), definită intr-o altă clasă, apelați metodele clasei Methods și
+//afișați rezultatele pe ecran (valorile de apel pentru prima metodă și șirul de caractere cu care se apelează a 3-a
+//metodă se vor defini în main()).
+//FERENTIU EMMA LUCIANA GRUPA 2124
+package tema;
+import java.util.Scanner;
+import java.util.Arrays;
+import java.util.Random;
+class Meto {
+int maritmetica(int... sir){
+        int suma=0;
+        int d=0;
+for(int numar : sir){
+ suma=suma+numar;
+ d++;
+}
+return suma/d;
+}
+Random rand = new Random(); 
+double[]  tablougenerat(int n){
+        
+double[] vect = new double[n];
+for(int i=0; i<n; i++){
+ vect[i]= rand.nextDouble(1000); 
+
+}
+return vect;
+}
+static String  majuscule(String a[]){
+        String fg;
+        fg=Arrays.toString(a);
+        return fg.toUpperCase();
+        
+}
+}
+
+public class Tema{
+public static void main(String... args) {
+String sir[] = new String[]{ "ana" , "are" , "mere"};
+Meto nume = new Meto();
+System.out.println("Media aritmetica este " + nume.maritmetica(4,6) );
+System.out.println("Tabloul generat este " + Arrays.toString(nume.tablougenerat(4))); //o singura variabila
+System.out.println("Sirul este dupa modificari" + Meto.majuscule(sir)); //variabile enumerate
+
+}
+}
+...............................................................................................................
+//Definiți o clasă X care va avea ca atribute un șir de caractere privat, un obiect de tip String cu specificatorul
+//protected și un întreg fără specificator de acces. Clasa va conține un constructor explicit cu parametri, care va
+//inițializa atributele, metode accesor și mutator pentru câmpurile care nu pot fi accesate din afara clasei și va
+//redefini metoda finalize() moștenită din clasa Object, care va afișa un mesaj corespunzător.
+//În metoda main(), plasată în altă clasă, creați un obiect din clasa X, afișați valorile atributelor, apoi pregătiți
+//obiectul pentru a fi eliminat de garbage collector. Creați apoi un nou obiect X, modificați valorile atributelor și
+//afișați pe ecran valorile acestora. 
+//FERENTIU EMMA LUCIANA GRUPA 2124
+package tema;
+import java.util.Scanner;
+import java.util.Arrays;
+import java.util.Random;
+class Object
+{ static Scanner in=new Scanner(System.in);
+ public void finalize()
+ {
+         System.out.println("Clasa Object!");
+ }
+}
+class X extends Object{
+private String Sir[]=new String[3];
+protected String Ob;
+int A;
+X(String ab[], String obiect, int nr) //constructor explicit
+{      
+           System.arraycopy(ab, 0, Sir, 0, 3);
+            Ob=obiect;
+            A=nr;
+}
+public String getOb() {
+    return Ob;
+  }
+
+  // Setter
+  public void setOb(String as) {
+    this.Ob = as;
+}
+  public String[] getSir() {
+            return Sir;
+          }
+
+
+          // Setter
+          public void setSir(String[] alb) {
+            this.Sir = alb;
+          }
+public void finalize()
+{
+        System.out.println("Finalize reusit");
+}
+}
+public class Tema{
+public static void main(String... args) {
+        String sirul[] = {"ana","are","mere"};
+        String cc="sipere";
+        X nume=new X(sirul,cc,5);
+        System.out.println( nume.getOb());
+        System.out.println( Arrays.toString(nume.getSir()));
+        System.out.println( nume.A);
+         nume=null;
+         System.gc();
+     System.runFinalization();
+
+          cc="aldoilea";
+     X numele=new X(sirul,cc,8);
+     System.out.println( numele.getOb());
+         System.out.println( Arrays.toString(numele.getSir()));
+         System.out.println( numele.A);
+     
+}
+}
+...................................................................................................................
+//4. Scrieți o clasă Java numită Persoană cu atributele private: nume (String), latitudine și longitudine (float). Clasa
+//conține un constructor explicit fără parametri care inițializează numele cu null și latitudinea și longitudinea cu 0.
+//Metoda finalize() va fi implementată pentru a afișa un mesaj la distrugerea obiectelor. Atributele clasei se pot
+//modifica prin metodele mutator specifice setNume(), setLatitudine() și setLongitudine(). Atributele vor fi
+//returnate prin metode accesor specifice. Instanțiați n obiecte, citiți și setati valorile atributelor, apoi afișați
+//datele tuturor obiectelor.
+//EMMA LUCIANA FERENTIU
+package tema;
+import java.util.Scanner;
+
+class Persoana{
+        private String Numele;
+        private float latitudinea;
+        private float longitudinea;
+        
+        Persoana(){
+                Numele = null;
+                latitudinea = 0;
+                longitudinea = 0;
+        }
+        
+        void setName(String name) {
+                this.Numele = name;
+        }
+        
+        String getName() {
+                return Numele;
+        }
+        
+        void setLatitudine(float latitude) {
+                this.latitudinea = latitude;
+        }
+        
+        float getLatitudine() {
+                return latitudinea;
+        }
+        
+        void setLongitudine(float longitude) {
+                this.longitudinea = longitude;
+        }
+        
+        float getLongitudine() {
+                return longitudinea;
+        }
+        
+        public void finalize() {
+                
+                System.out.println("Destructorul a functionat!");
+        }
+}
+
+public class Tema {
+
+        public static void main(String[] args) {
+                Scanner intr = new Scanner(System.in);
+                int variabila;
+                System.out.println("Introduceti nr obiectelor ");
+                variabila = intr.nextInt();
+                Persoana[] ex = new Persoana[variabila];
+                
+                for (int k=0; k<variabila; k++) {
+                        System.out.println("Introduceti numele persoanei cu nr " + (k+1));          
+                        String name = intr.next();
+                        ex[k] = new Persoana();
+                        
+                        ex[k].setName(name);
+                        
+                        System.out.println("Introduceti latituinea pt obiectul nr " + (k+1));
+                        float latitude = intr.nextFloat();
+                        
+                        ex[k].setLatitudine(latitude);
+                        
+                        System.out.println("Introduceti longitudinea pt obiectul nr " + (k+1));
+                        float longitude = intr.nextFloat();
+                        
+                        ex[k].setLongitudine(longitude);
+                }
+                
+                
+                
+                for (int j=0; j<variabila; j++) {
+                        System.out.println("Persoana " + (j+1) + " se numeste " + ex[j].getName() + ", are latiudinea " + ex[j].getLatitudine() + " si longitudinea " + ex[j].getLongitudine());
+                        
+                        
+                }
+        }
+        
+
+}
+..................................................................................................................................................................
+//Construiti o aplicatie Java care sa testeze diferite metode ale clasei 
+//String (join(), chars(), lines(), repeat(),
+//transform(), formatted(), etc.)
+//FERENTIU EMMA LUCIANA GRUPA 2124
+package tema;
+import java.util.Scanner;
+import java.util.stream.Stream;
+import java.util.Arrays;
+import java.util.Random;
+import java.util.List;
+import java.util.function.Function;
+
+public class Tema{
+public static void main(String... args) {
+        
+            
+                //delimiteaza cu "*" elementele sirului
+                String primul = String.join(" * ", "Vin", "Sarbatorile", "Pascale", "In Curand");
+          
+                System.out.println(primul);
+                String s="tema";  
+                char c=s.charAt(0); //extrage cate caractere vrem
+                System.out.println(c);
+                String temele="tema \n tema";
+                Stream<String> lines = temele.lines();
+                
+                // afiseaza, creand spatii
+                
+                lines.forEach(System.out::println);
+                String repetare="la";
+                
+                int count=3;
+                  
+                System.out.println(repetare.repeat(count));
+                //repeta afisarea de cate ori setam counter-ul
+                String si = String.format("Cantecul este %s", primul);
+                //concatenarea a 2 siruri
+                System.out.println(si);
+                 
+
+}
+.................................................................................................................................................................
+//6. Definiți un șir unidimensional de valori de tip char, având numărul mai mic sau cel mult egal cu un n citit de la
+//tastatură. Fiecare valoare conține valori alfa-numerice generate aleator. Transformați șirul de caractere într-un
+//obiect de tip String. Afișați valoarea inițială și apoi valoarea obținută prin înlocuirea fiecărui caracter numeric cu
+//‘*’. 
+//FERENTIU EMMA LUCIANA GRUPA 2124
+package tema;
+import java.util.Scanner;
+import java.util.stream.Stream;
+import java.util.Arrays;
+import java.util.Random;
+import java.util.List;
+import java.util.function.Function;
+import java.util.UUID;
+
+public class Tema{
+        static Scanner in=new Scanner(System.in);
+
+public static void main(String... args) {
+        
+         System.out.println("introduceti un nr intreg:");
+         int n;
+         n=in.nextInt();
+         char[] tab=new char[n];
+         String tablou[]=new String[n];
+         
+         Random r = new Random();
+
+            String alphabet = "0123456789qwertyuiopasdfghjklzxcvbnm";
+            for (int i = 0; i < n; i++) {
+                    tab[i]=alphabet.charAt(r.nextInt(alphabet.length()));
+                //System.out.println(tab[i]);
+            }
+            for (int i = 0; i < n; i++) {
+                    tablou[i]=Character.toString(tab[i]);
+               
+            }
+          System.out.println("sirul generat:");
+            System.out.println(Arrays.toString(tablou));
+            for (int i = 0; i < n; i++) {
+                    int isFound = "0 1 2 3 4 5 6 7 8 9".indexOf(tablou[i]);
+                     //System.out.println(isFound);
+                    if(isFound!=-1)
+                    {    char o='*';
+                            tablou[i]=Character.toString(o);
+                    }
+               
+            }
+            System.out.println("sirul modificat");
+            System.out.println(Arrays.toString(tablou));
+            
+           
+}
+}

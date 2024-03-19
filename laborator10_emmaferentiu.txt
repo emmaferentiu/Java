@@ -1,0 +1,80 @@
+// Scrieți o aplicație de tip Frame în care afișați într-un Panel numele vostru și grupa din care faceți parte. Textul va fi de
+//culoare albastră și centrat atât pe orizontală, cât și pe verticală, ținând cont de dimensiunea panelului
+//FERENTIU EMMA LUCIANA 2124
+import java.awt.Color;
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.Panel;
+
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+
+public class c {
+        
+        public static void main(String[] args) {
+                
+                JLabel label = new JLabel();
+                label.setText("FERENTIU EMMA 2024");
+                label.setForeground(Color.BLUE);
+                label.setVerticalAlignment(JLabel.CENTER);
+                label.setHorizontalAlignment(JLabel.CENTER);
+                
+                
+                JFrame frame = new JFrame();
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setSize(600,600);
+                 frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
+                JPanel panel = new JPanel();
+                panel.setBackground(Color.magenta);
+                panel.setBounds(0,0,600,600);
+                panel.setLayout(new BorderLayout());
+                panel.add(label);
+                frame.add(panel);
+                
+        }
+        
+}
+..........................................................................................................................
+//Scrieți o aplicație de tip Frame care va desena într-un Canvas un cerc de culoare roșie tangent la dimensiunea cea mai
+//mică (înălțime, lățime) a componentei Canvas.
+
+//FERENTIU EMMA LUCIANA 2124
+import java.awt.Color;
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.Panel;
+
+
+import java.awt.Color;
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.Panel;
+class JPanel_Canvas extends Panel {
+private static final long serialVersionUID = 1L;
+public JPanel_Canvas( ) { }
+public void paint(Graphics g) {
+ int width = getWidth();
+ int height = getHeight();
+ g.setColor(Color.red);
+
+ if(width>height)
+         g.drawOval(0, 0, width, height/2);
+ else
+         g.drawOval(0, 0, width/2, height);
+ }
+}
+public class c{
+public static void main(String args[ ]) {
+ Frame frame = new Frame("Oval Sample");
+ frame.add(new JPanel_Canvas( ));
+ frame.setSize(300, 100);
+ frame.setVisible(true);
+}
+}
+...................................................................................................................................

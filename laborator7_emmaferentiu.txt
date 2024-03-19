@@ -1,0 +1,448 @@
+package tema;
+
+// 3. Implementați o aplicație în cadrul căreia să aveți o clasă SetterGetter generică ce permite setarea și returnarea
+//valorilor atributelor pentru mai multe tipuri de obiecte. De exemplu, având clasele Copil, Adult și Pensionar, să se poată
+//seta și returna numele și vârsta acestora. Creați colecții cu intrări unice de obiecte de tip Copil, Adult, Pensionar pe care
+//să le populați cu date citite din consolă. Afișați datele preluate în diferite moduri.
+// FERENTIU EMMA LUCIANA
+
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Scanner;
+import java.util.Set;
+
+
+class SetterGetter<T>{
+        
+        private String nume;
+        private int varsta;
+        
+        SetterGetter(){
+                this.nume = null;
+                this.varsta = 0;
+        }
+        
+        SetterGetter(String nume, int varsta){
+                this.nume = nume;
+                this.varsta = varsta;
+        }
+        
+        public String getNume() {
+                return this.nume;
+        }
+        
+        public int getVarsta() {
+                return this.varsta;
+        }
+        
+        public void setNume(String nume) {
+                this.nume = nume;
+        }
+        
+        public void setVarsta(int varsta) {
+                this.varsta = varsta;
+        }
+        
+}
+
+class Copil extends SetterGetter<Copil>{
+        
+}
+
+class Adult extends SetterGetter<Adult>{
+        
+}
+
+class Pensionar extends SetterGetter<Pensionar>{
+        
+}
+
+
+
+public class labora7 {
+        
+        public static void main(String[] args) {
+                
+                Set<Copil> copii = new LinkedHashSet<>();
+                Set<Adult> adulti = new LinkedHashSet<>(); // LinkedHashSet este o clasă în Java care implementează interfața Set și extinde clasa HashSet.
+// Acesta păstrează ordinea de inserare a elementelor și permite stocarea elementelor unice (fără duplicări).
+                Set<Pensionar> pensionari = new LinkedHashSet<>();
+                System.out.println("Introduceti datele copiilor: (nume, varsta)");
+                boolean continua = true;
+                Scanner in = new Scanner(System.in);
+                while (continua == true) {
+                        String nume = in.next();
+                        int varsta = in.nextInt();
+                        Copil copil = new Copil();
+                        copil.setNume(nume);
+                        copil.setVarsta(varsta);
+                        copii.add(copil);
+                        System.out.println("Introduceti datele unui nou copil? (d/n)");
+                        String input = in.next();
+                        while(!(input.equals("n") || input.equals("d"))) {
+                                System.out.println("Input invalid, introduceti 'd' sau 'n'");
+                                input = in.next();
+                        }
+                        if(input.equals("d"))
+                                continua = true;
+                        else 
+                                continua = false;
+                        }
+                
+                System.out.println("Introduceti datele adultilor: (name, age)");
+                continua = true;
+                while (continua == true) {
+                        String nume = in.next();
+                        int varsta = in.nextInt();
+                        Adult adult = new Adult();
+                        adult.setNume(nume);
+                        adult.setVarsta(varsta);
+                        adulti.add(adult);
+                        System.out.println("Introduceti datele unui nou adult? (d/n)");
+                        String input = in.next();
+                        while(!(input.equals("n") || input.equals("d"))) {
+                                System.out.println("Input invalid, introduceti 'd' sau 'n'");
+                                input = in.next();
+                        }
+                        if(input.equals("d"))
+                                continua = true;
+                        else 
+                                continua = false;
+                        }
+                
+                System.out.println("Introduceti datele pensionarilor: (name, age)");
+                continua = true;
+                while (continua == true) {
+                        String nume = in.next();
+                        int varsta = in.nextInt();
+                        Pensionar pensionar = new Pensionar();
+                        pensionar.setNume(nume);
+                        pensionar.setVarsta(varsta);
+                        pensionari.add(pensionar);
+                        System.out.println("Introduceti datele unui nou pensionar? (d/n)");
+                        String input = in.next();
+                        while(!(input.equals("n") || input.equals("d"))) {
+                                System.out.println("Input invalid, introduceti 'd' sau 'n'");
+                                input = in.next();
+                        }
+                        if(input.equals("d"))
+                                continua = true;
+                        else 
+                                continua = false;
+                        }
+                in.close();
+                
+                System.out.println("\nCopiii: ");
+                for(Copil copil:copii)
+                        System.out.println(copil.getNume() + ": " + copil.getVarsta() + " ani");
+                
+                System.out.println("\nAdultii: ");
+                Adult curent = new Adult();
+                Iterator<Adult> it = adulti.iterator();
+                while(it.hasNext()) {
+                        curent = it.next();
+                        System.out.println(curent.getNume() + ": " + curent.getVarsta() + " ani");
+                }
+                
+                System.out.println("\nPensionarii: ");
+                for(Pensionar pensionar:pensionari)
+                        System.out.println(pensionar.getNume() + ": " + pensionar.getVarsta() + " ani");
+                
+        }
+        
+}
+}
+..........................................................................................
+package tema;
+
+// 4. Implementati o clasa numita UserFile (denumire, extensie, tip, marime in bytes, constructori, mutatori si accesori).
+//Tipurile de fisiere sunt predefinite si stocate intr-un obiect Hashtable (de ex. „imagine” =>0, „text” =>1, „aplicatie” =>2,
+//etc.). Creați un șir de obiecte instanțiate din această clasă și citiți de la tastatură datele aferente. Afișați toate extensiile
+//specifice tipurilor de fișiere predefinite. Ordonați lista de fișiere în funcție de mărime si afișați rezultatul.
+//FERENTIU EMMA LUCIANA
+ 
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Scanner;
+
+class UserFile{
+        
+        private String denumire;
+        private String extensie;
+        private String tip;
+        private int marime;
+        
+        UserFile(){
+                this.denumire = null;
+                this.extensie = null;
+                this.tip = null;
+                this.marime = 0;
+        }
+        
+        UserFile(String nume, String extensie, String tip, int marime){
+                this.denumire = nume;
+                this.extensie = extensie;
+                this.tip = tip;
+                this.marime = marime;
+        }
+        
+        public void setDenumire(String denumire) {
+                this.denumire = denumire;
+        }
+        
+        public String getDenumire() {
+                return denumire;
+        }
+        
+        public void setExtensie(String extensie) {
+                this.extensie = extensie;
+        }
+        
+        public String getExtensie() {
+                return extensie;
+        }
+        
+        public void setTip(String tip) {
+                this.tip = tip;
+        }
+        
+        public String getTip() {
+                return tip;
+        }
+        
+        public void setMarime(int marime) {
+                this.marime = marime;
+        }
+        
+        public int getMarime() {
+                return marime;
+        }
+        
+        @Override
+        public String toString() {
+                return "\n\nDenumire: " + this.getDenumire() + "\nTip: " + this.getTip() + "\nExtensie: " 
+                                + this.getExtensie() + "\nMarime: " + this.getMarime() + " bytes";
+        }
+}
+
+
+public class labora7 {
+        public static void main(String[] args) {
+                
+                Hashtable<String, Integer> hash = new Hashtable<>(); // se creează un obiect Hashtable pentru a stoca tipurile de fișiere predefinite și asocierea lor cu un cod numeric.
+                hash.put("imagine", 0);
+                hash.put("text", 1);
+                hash.put("aplicatie", 2);
+                hash.put("videoclip", 3);
+                
+                Scanner in = new Scanner(System.in);
+                List<UserFile> lista = new ArrayList<>();
+                boolean continua = true;
+                do {
+                        UserFile ob = new UserFile();
+                        System.out.println("Introduceti datele fisierului: ");
+                        System.out.println("Denumire: ");
+                        String input = in.next();
+                        ob.setDenumire(input);
+                        System.out.println("Tip: (imagine, text, aplicatie, videoclip) ");
+                        while(true) {
+                                try {
+                                        input = in.next();
+                                        ob.setTip(input);
+                                        int tip = hash.get(input);
+                                        switch(tip) {
+                                        case 0:
+                                                ob.setExtensie(".jpg");
+                                                System.out.println("Extensia fisierului este: " + ob.getExtensie());
+                                                break;
+                                        case 1:
+                                                ob.setExtensie(".txt");
+                                                System.out.println("Extensia fisierului este: " + ob.getExtensie());
+                                                break;
+                                        case 2:
+                                                ob.setExtensie(".exe");
+                                                System.out.println("Extensia fisierului este: " + ob.getExtensie());
+                                                break;
+                                        case 3:
+                                                ob.setExtensie(".mp4");
+                                                System.out.println("Extensia fisierului este: " + ob.getExtensie());
+                                                break;
+                                        }
+                                        break;
+                                }
+                                catch(NullPointerException e) {
+                                        System.err.println("Input gresit.");
+                                        continue;
+                                }
+                        }
+                        
+                        System.out.println("Marimea fisierului in bytes: ");
+                        int size = in.nextInt();
+                        ob.setMarime(size);
+                        lista.add(ob);
+                        System.out.println("Introduceti un nou fisier? (d/n)");
+                        input = in.next();
+                        while(!(input.equals("n") || input.equals("d"))) {
+                                System.out.println("Input invalid. Introduceti 'd' sau 'n'");
+                                input = in.next();
+                        }
+                        if(input.equals("d"))
+                                continua = true;
+                        else 
+                                continua = false;
+                        
+                } while(continua == true);
+                
+                in.close();
+                Comparator<UserFile> compareSize = new Comparator<>() {
+                        @Override
+                        public int compare(UserFile o1, UserFile o2) {
+                                return o1.getMarime() - o2.getMarime();
+                        }
+                };
+                Collections.sort(lista, compareSize); //ordonare
+                System.out.println("Fisierele ordonate in ordinea marimii: ");
+                System.out.println(Arrays.toString(lista.toArray()));
+        }
+                
+        
+}
+.........................................................................................................................................................................
+package tema;
+
+//5. Scrieti o clasa Student cu campurile private nume, grupa, media, si metode getter/setter pentru campuri. In main(),
+//plasata in alta clasa, creati o colectie de tip SortedSet, cu obiecte de tip Student, initializate cu valori citite de la tastatura,
+//care sa pastreze elementele descrescator dupa medie si crescator dupa nume (cei care au aceeasi medie sa fie in ordine
+//alfabetica). Parcurgeti cu for-loop colectia si afisati toate elementele. Parcurgeti apoi colectia cu un iterator si afisati toti
+//studentii cu media >=8. Parcurgeti colectia cu forEach() si afisati toate datele studentilor dintr-o anumita grupa.
+// FERENTIU EMMA LUCIANA
+
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.Scanner;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+
+class Student{
+        
+        private String nume;
+        private int grupa;
+        private float media;
+        
+        Student(){
+                this.nume = null;
+                this.grupa = 0;
+                this.media = 0;
+        }
+        
+        Student(String nume, int grupa, float media){
+                this.nume = nume;
+                this.grupa = grupa;
+                this.media = media;
+        }
+        
+        public String getNume() {
+                return nume;
+        }
+        
+        public void setNume(String nume) {
+                this.nume = nume;
+        }
+        
+        public int getGrupa() {
+                return grupa;
+        }
+        
+        public void setGrupa(int grupa) {
+                this.grupa = grupa;
+        }
+        
+        public float getMedia() {
+                return media;
+        }
+        
+        public void setMedia(float media) {
+                this.media = media;
+        }
+        
+        @Override
+        public String toString() {
+                return "\nNume: " + this.getNume() + "\nGrupa:" + this.getGrupa() + "\nMedia:"
+                                + this.getMedia();
+        }
+
+}
+
+class Compare implements Comparator<Student> { //comparare a obiectelor de tip student
+    @Override
+    public int compare(Student s1, Student s2) {
+        int comparaMedia = (int) (s2.getMedia()-s1.getMedia());
+        if(comparaMedia != 0) {
+            return comparaMedia;
+        }
+        return s1.getNume().compareTo(s2.getNume());
+    }
+}
+
+public class labora7 {
+
+        public static void main(String[] args) {
+                
+                SortedSet<Student> colectie = new TreeSet<>(new Compare());
+                boolean continua = true;
+                Scanner in = new Scanner(System.in);
+                do {
+                        Student ob = new Student();
+                        System.out.println("Introduceti datele studentului: ");
+                        System.out.println("Nume: ");
+                        String input = in.next();
+                        ob.setNume(input);
+                        System.out.println("Grupa: ");
+                        ob.setGrupa(in.nextInt());
+                        System.out.println("Media:");
+                        ob.setMedia(in.nextFloat());
+                        colectie.add(ob);
+                        System.out.println("Introduceti datele altui student? (d/n)");
+                        input = in.next();
+                        while(!(input.equals("d") || input.equals("n"))){
+                                System.out.println("Input gresit! Introduceti 'd' sau 'n'");
+                                input = in.next();
+                        }
+                        if(input.equals("d") == true)
+                                continua = true;
+                        else
+                                continua = false;
+                } while(continua == true);
+                in.close();
+                
+                System.out.println("\n Studentii introdusi: ");
+                for(Student student:colectie) {
+                        System.out.println (student);
+                }
+                
+                System.out.println("\n Studentii cu media mai mare sau egala cu 8: ");
+                Iterator<Student> it = colectie.iterator(); // Prin apelul metodei iterator() pe colectie, se obține un iterator (it) care poate fi folosit pentru a itera prin elementele colecției.
+                while(it.hasNext()) {
+                        Student curent = it.next();
+                        if(curent.getMedia() >= 8)
+                                System.out.println(curent);
+                }
+                
+                System.out.println("\n Studentii din grupa 2124: ");
+                colectie.forEach(
+                                student -> {
+                                        if(student.getGrupa() == 2124)
+                                                System.out.println(student);
+                                }
+                        );
+                
+                        
+        }
+
+}

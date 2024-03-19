@@ -1,0 +1,367 @@
+//2. Creați o aplicație Java ce include 3 elemente de tip slider, prin intermediul cărora se poate seta culoarea unui pătrat
+//de dimensiunea 100x100. Pătratul va fi desenat într-o componentă specifică (Canvas, etc.).
+import javax.swing.*;
+import java.awt.*;
+import javax.swing.event.*;
+
+public class SquareColorApp extends JFrame {
+    private JSlider redSlider;
+    private JSlider greenSlider;
+    private JSlider blueSlider;
+    private JPanel squarePanel;
+
+    public SquareColorApp() {
+        setTitle("Setare culoare patrat"); //titlu
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Seteaza inchidierea
+        setLayout(new FlowLayout()); // Setează managerul de layout pentru componentele din fereastră
+
+        // Initializam slidere in functie de culoare
+        redSlider = new JSlider(0, 255, 0);
+        greenSlider = new JSlider(0, 255, 0);
+        blueSlider = new JSlider(0, 255, 0);
+
+        // avem un ascultator de slider pentru fiecare
+        redSlider.addChangeListener(new ColorSliderChangeListener());
+        greenSlider.addChangeListener(new ColorSliderChangeListener());
+        blueSlider.addChangeListener(new ColorSliderChangeListener());
+
+        squarePanel = new JPanel(); // inițializează un panou pentru desenarea pătratului
+        squarePanel.setPreferredSize(new Dimension(100, 100)); // etează dimensiunile pătratului
+
+        // Adaugă slider-ele și panoul în fereastră
+        add(redSlider);
+        add(greenSlider);
+        add(blueSlider);
+        add(squarePanel);
+
+        pack(); // Redimensionează fereastra pentru a se potrivi cu conținutul
+        setVisible(true); // Afișează fereastra
+    }
+
+    // Ascultătorul de evenimente pentru slider-ele de culoare
+    private class ColorSliderChangeListener implements ChangeListener {
+        public void stateChanged(ChangeEvent e) {
+            // Obține valorile curente ale slider-elor de roșu, verde și albastru
+            int redValue = redSlider.getValue();
+            int greenValue = greenSlider.getValue();
+            int blueValue = blueSlider.getValue();
+
+            // Creează o nouă culoare bazată pe valorile slider-elor
+            Color squareColor = new Color(redValue, greenValue, blueValue);
+
+            // Setează culoarea de fundal a panoului pătratului
+            squarePanel.setBackground(squareColor);
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new SquareColorApp();
+            }
+        });
+    }
+}
+..............................................................................................................................................
+//modificarea codului de la laboratorul anterior, problema era deja functionala si am adaugat doar winodow listener si mici modificari
+//FERENTIU EMMA LUCIANA
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTabbedPane;
+
+class Panel_Canvas extends Panel {
+    private static final long serialVersionUID = 1L;
+
+    public Panel_Canvas() {
+    }
+
+    public void paint(Graphics g) {
+        int width = getWidth();
+        int height = getHeight();
+        g.setColor(Color.magenta);
+        g.drawOval(0, 0, width, height);
+    }
+}
+
+public class c implements WindowListener {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Aplicație de tip Tabbed View");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.addWindowListener(new c());
+
+        JTabbedPane tabbedPane = new JTabbedPane();
+
+        Panel_Canvas tab1 = new Panel_Canvas();
+        JPanel tab2 = new JPanel();
+        JPanel tab3 = new JPanel();
+        JRadioButton option1 = new JRadioButton("Arial");
+        JRadioButton option2 = new JRadioButton("Times New Roman");
+        JRadioButton option3 = new JRadioButton("Courier New");
+
+        // Gruparea radio button-urilor pentru a permite selectarea unei singure opțiuni
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(option1);
+        buttonGroup.add(option2);
+        buttonGroup.add(option3);
+        JButton button = new JButton("Text de proba");
+        // ActionListener pentru a gestiona acțiunile la selectarea unei opțiuni
+        ActionListener actionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JRadioButton selectedRadioButton = (JRadioButton) e.getSource();
+                String selectedOption = selectedRadioButton.getText();
+                Font font = new Font(selectedOption, Font.PLAIN, 12); // Fontul "Arial", stilul normal, mărimea 12
+                button.setFont(font);
+            }
+        };
+
+        option1.addActionListener(actionListener);
+        option2.addActionListener(actionListener);
+        option3.addActionListener(actionListener);
+
+        tab2.add(option1);
+        tab2.add(option2);
+        tab2.add(option3);
+        tab2.add(button);
+        JRadioButton option4 = new JRadioButton("Cerc");
+        JRadioButton option5 = new JRadioButton("Patrat");
+        JRadioButton option6 = new JRadioButton("Triunghi");
+        ButtonGroup buttonGroup2 = new ButtonGroup();
+        buttonGroup2.add(option4);
+        buttonGroup2.add(option5);
+        buttonGroup2.add(option6);
+        // ActionListener pentru a gestiona acțiunile la selectarea unei opțiuni
+        ActionListener actionListener2 = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JRadioButton selectedRadioButton = (JRadioButton) e.getSource();
+                String selectedOption = selectedRadioButton.getText();
+                // Implementează logica pentru desenarea formei selectate
+            }
+        };
+
+        option4.addActionListener(actionListener2);
+        option5.addActionListener(actionListener2);
+        option6.addActionListener(actionListener2);
+        tab3.add(option4);
+        tab3.add(option5);
+        tab3.add(option6);
+        tabbedPane.addTab("Tab 1", tab1);
+        tabbedPane.addTab("Tab 2", tab2);
+        tabbedPane.addTab("Tab 3", tab3);
+
+        frame.add(tabbedPane, BorderLayout.CENTER);
+
+        frame.setSize(400, 300);
+        frame.setVisible(true);
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        // Acțiunile pe care le dorești să le execuți la deschiderea ferestrei
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        // Acțiunile pe care le dorești să le execuți la închiderea ferestrei
+        System.exit(0); // Închide aplicația complet
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+        // Acțiunile pe care le dorești să le execuți după ce fereastra a fost închisă
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+        // Acțiunile pe care le dorești să le execuți atunci când fereastra este minimizată
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+        // Acțiunile pe care le dorești să le execuți atunci când fereastra este restaurată din starea minimizată
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        // Acțiunile pe care le dorești să le execuți atunci când fereastra primește focusul
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+        // Acțiunile pe care le dorești să le execuți atunci când fereastra pierde focusul
+    }
+}
+..........................................................................
+//imbunatatirea functionalitatii problemei 3 de la lab 11
+/FERENTIUEMMA LUCIANA
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTabbedPane;
+
+class Panel_Canvas extends Panel {
+    private static final long serialVersionUID = 1L;
+    private String shape = "Cerc"; // Forma selectată inițial
+
+    public Panel_Canvas() {
+    }
+
+    public void setShape(String shape) {
+        this.shape = shape;
+        repaint(); // Redesenăm componenta canvas-ului
+    }
+
+    public void paint(Graphics g) {
+        int width = getWidth();
+        int height = getHeight();
+        g.setColor(Color.magenta);
+
+        switch (shape) {
+            case "Cerc":
+                g.drawOval(0, 0, width, height);
+                break;
+            case "Patrat":
+                g.drawRect(0, 0, width, height);
+                break;
+            case "Triunghi":
+                int[] xPoints = { 0, width / 2, width };
+                int[] yPoints = { height, 0, height };
+                g.drawPolygon(xPoints, yPoints, 3);
+                break;
+        }
+    }
+}
+
+public class c implements WindowListener {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Aplicație de tip Tabbed View");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.addWindowListener(new c());
+
+        JTabbedPane tabbedPane = new JTabbedPane();
+
+        Panel_Canvas tab1 = new Panel_Canvas();
+        JPanel tab2 = new JPanel();
+        JPanel tab3 = new JPanel();
+        JRadioButton option1 = new JRadioButton("Arial");
+        JRadioButton option2 = new JRadioButton("Times New Roman");
+        JRadioButton option3 = new JRadioButton("Courier New");
+
+        // Gruparea radio button-urilor pentru a permite selectarea unei singure opțiuni
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(option1);
+        buttonGroup.add(option2);
+        buttonGroup.add(option3);
+
+        JRadioButton option4 = new JRadioButton("Cerc");
+        JRadioButton option5 = new JRadioButton("Patrat");
+        JRadioButton option6 = new JRadioButton("Triunghi");
+        ButtonGroup buttonGroup2 = new ButtonGroup();
+        buttonGroup2.add(option4);
+        buttonGroup2.add(option5);
+        buttonGroup2.add(option6);
+
+        JButton button = new JButton("Text de proba");
+        // ActionListener pentru a gestiona acțiunile la selectarea unei opțiuni
+        ActionListener actionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JRadioButton selectedRadioButton = (JRadioButton) e.getSource();
+                String selectedOption = selectedRadioButton.getText();
+                Font font = new Font(selectedOption, Font.PLAIN, 12); // Fontul "Arial", stilul normal, mărimea 12
+                button.setFont(font);
+                
+            }
+        };
+
+        option1.addActionListener(actionListener);
+        option2.addActionListener(actionListener);
+        option3.addActionListener(actionListener);
+        tab1.add(button);
+        tab2.add(option1);
+        tab2.add(option2);
+        tab2.add(option3);
+        tab2.add(button);
+
+        // ActionListener pentru a gestiona acțiunile la selectarea unei opțiuni în tab-ul 3
+        ActionListener actionListener2 = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JRadioButton selectedRadioButton = (JRadioButton) e.getSource();
+                String selectedOption = selectedRadioButton.getText();
+                tab1.setShape(selectedOption);
+            }
+        };
+
+        option4.addActionListener(actionListener2);
+        option5.addActionListener(actionListener2);
+        option6.addActionListener(actionListener2);
+        tab3.add(option4);
+        tab3.add(option5);
+        tab3.add(option6);
+
+        tabbedPane.addTab("Tab 1", tab1);
+        tabbedPane.addTab("Tab 2", tab2);
+        tabbedPane.addTab("Tab 3", tab3);
+
+        frame.add(tabbedPane, BorderLayout.CENTER);
+
+        frame.setSize(400, 300);
+        frame.setVisible(true);
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        System.exit(0);
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+    }
+}

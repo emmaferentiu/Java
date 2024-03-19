@@ -1,0 +1,181 @@
+
+//Folosind mecanismul preluării datelor de la tastatură cu un BufferedReader și InputStreamReader, preluați: un mesaj
+//de tip String, ziua ca intreg, luna de tip String si anul ca un întreg. Procesul se va încheia în momentul trecerii la o nouă
+//linie, când se va afișa fiecare câmp pe o linie separată. Afisati de asemenea toate campurile in ordinea in care au aparut.
+//Recomandare: Folosiți clasa StreamTokenizer, atributele sval, nval respectiv constanta TT_EOL.
+//Considerați și cazul în care nu cunoașteți natura câmpurilor introduse (numeric, cuvânt) folosind constantele
+//TT_NUMBER, TT_WORD.
+//ferentiu emma luciana grupa 2124
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.io.StreamTokenizer;
+
+public class InputParser {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); //pt a citi de la tastatura
+        StreamTokenizer tokenizer = new StreamTokenizer(reader); //pt a obtine fluxul de la  tastatura
+        tokenizer.eolIsSignificant(true); //descumpounere in token-uri
+
+        while (true) {
+            System.out.print("Introduceti un mesaj, o zi, o luna si un an (sau SFARSIT ca sa inchideti): ");
+            tokenizer.nextToken(); //citirea urmatorului token
+            if (tokenizer.ttype == StreamTokenizer.TT_WORD && tokenizer.sval.equalsIgnoreCase("SFARSIT")) { //se inchide daca se citeste sfarsit
+                System.out.println("Se inchide...");
+                break;
+            }
+            System.out.println("Mesajul:" + tokenizer.sval);
+
+            tokenizer.nextToken();
+            if (tokenizer.ttype == StreamTokenizer.TT_NUMBER) {
+                int day = (int) tokenizer.nval;
+                System.out.println("Ziua " + day);
+            }
+
+            tokenizer.nextToken();
+            if (tokenizer.ttype == StreamTokenizer.TT_WORD) {
+                String month = tokenizer.sval;
+                System.out.println("Luna: " + month);
+            }
+
+            tokenizer.nextToken();
+            if (tokenizer.ttype == StreamTokenizer.TT_NUMBER) {
+                int year = (int) tokenizer.nval;
+                System.out.println("Anul: " + year);
+            }
+
+            tokenizer.nextToken();
+            if (tokenizer.ttype != StreamTokenizer.TT_EOL) { //se verifica cu tt_eol daca este sfarsitul liniei
+                System.out.println("Format invalid. Tastati mesajul, ziua, luna si anul despartite de un spatiu intre ele!");
+            }
+        }
+
+        reader.close();
+    }
+.....................................................................................................
+//Implementați aplicația anterioară folosind un fișier de intrare care conține un anumit număr de inregistrări cu
+//formatul specificat mai sus.
+//Ferentiu Emmma Luciana grupa 2124
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.StreamTokenizer;
+
+public class Prob2 {
+    public static void main(String[] args) throws IOException {
+        FileReader fileReader = new FileReader("input.txt"); //e creează un obiect fileReader de tip FileReader care citește din fișierul "input.txt"
+        BufferedReader reader = new BufferedReader(fileReader); // Se creează un obiect reader de tip BufferedReader asociat cu obiectul fileReader, fiind utilizat pentru a citi liniile din fișier.
+        StreamTokenizer tokenizer = new StreamTokenizer(reader);
+        tokenizer.eolIsSignificant(true);
+
+        while (true) {
+            int token = tokenizer.nextToken();
+            if (token == StreamTokenizer.TT_EOF) {
+                System.out.println("S-a ajuns la sfarsitul fisierului.");
+                break;
+            }
+            if (token != StreamTokenizer.TT_WORD) {
+                System.out.println("Format invalid. Introduceti un mesaj, o zi, o luna si un an separate printr-un spatiu.");
+                continue;
+            }
+            if (tokenizer.sval.equalsIgnoreCase("SFARSIT")) {
+                System.out.println("Se inchide programul...");
+                break;
+            }
+            System.out.println("Mesajul: " + tokenizer.sval);
+
+            token = tokenizer.nextToken();
+            if (token == StreamTokenizer.TT_NUMBER) {
+                int day = (int) tokenizer.nval;
+                System.out.println("Ziua " + day);
+            } else {
+                System.out.println("Format invalid. Introduceti un mesaj, o zi, o luna si un an separate printr-un spatiu.");
+                continue;
+            }
+
+            token = tokenizer.nextToken();
+            if (token == StreamTokenizer.TT_WORD) {
+                String month = tokenizer.sval;
+                System.out.println("Luna: " + month);
+            } else {
+                System.out.println("Format invalid. Introduceti un mesaj, o zi, o luna si un an separate printr-un spatiu.");
+                continue;
+            }
+
+            token = tokenizer.nextToken();
+            if (token == StreamTokenizer.TT_NUMBER) {
+                int year = (int) tokenizer.nval;
+                System.out.println("Anul: " + year);
+            } else {
+                System.out.println("Format invalid. Introduceti un mesaj, o zi, o luna si un an separate printr-un spatiu.");
+                continue;
+            }
+
+            token = tokenizer.nextToken();
+            if (token != StreamTokenizer.TT_EOL) {
+                System.out.println("Format invalid. Introduceti un mesaj, o zi, o luna si un an separate printr-un spatiu.");
+            }
+        }
+
+        reader.close();
+    }
+}
+........................................................................................................................................
+//Se citesc de la tastatură date formatate sub forma DD/MM/YYYY. Să se afișeze sub forma DD luna YYYY, unde luna
+//este forma expandată a MM și de asemenea să se afișeze și dacă anul este bisect. Programul se oprește prin apăsarea
+//tastei X sau x. Puteti folosi si clasa DateFormatSymbols pentru conversia lunii
+//FERENTIU EMMA LUCIANA
+
+import java.util.Scanner;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.text.DateFormatSymbols;
+
+public class Prob3 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            System.out.print("Introduceti o data in formatul DD/MM/YYYY (sau X pentru a inchide): ");
+            String input = sc.nextLine();
+
+            if (input.equalsIgnoreCase("X")) { //Se verifică dacă input-ul este egal cu X utilizând equalsIgnoreCase()
+                System.out.println("Se inchide...");
+                break;
+            }
+
+            SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy"); 
+            Date date;
+            try {
+                date = inputFormat.parse(input); //see analizeaza input-ul utilizând metoda parse() a obiectului inputFormat. in cazul in care apar probleme, se afișează un mesaj coresp și se continuă cu o noua ruloare a buclei
+            } catch (Exception e) {
+                System.out.println("Format invalid, incercati din nou:");
+                continue;
+            }
+
+            SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy");
+            String output = outputFormat.format(date);
+//un obiect outputFormat de tip SimpleDateFormat pentru tipul datei de iesire
+
+//Se formateaza data utilizând metoda format() a obiectului outputFormat și se salveaza rezultatul 
+
+            DateFormatSymbols symbols = new DateFormatSymbols(); //Se creează un obiect symbols de tip DateFormatSymbols pentru a obține denumirile lunilor
+            String[] monthNames = symbols.getMonths();
+            String month = monthNames[date.getMonth()]; //se stocheaza numele lunilor
+
+            System.out.println(output + " " + month);
+
+            int year = date.getYear() + 1900;
+            if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+                System.out.println(year + " este an bisect.");
+            } else {
+                System.out.println(year + " nu este un an bisect.");
+            }
+        }
+
+        sc.close();
+    }
+}
+
+............................................................

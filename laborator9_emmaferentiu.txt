@@ -1,0 +1,255 @@
+//Să se creeze o aplicație Java în cadrul căreia există o clasă ce implementează interfața Runnable. Constructorul clasei
+//permite definirea unui nume asociat fiecărui obiect instanțiat din clasa respectivă și de asemenea clasa are un atribut
+//static ce contorizează numărul de obiecte instanțiate. Metoda run( ) a clasei va afișa numele obiectului de un număr de
+//ori egal cu valoarea contorului și cu o întârziere de 1000 msec între afișări. 
+//FERENTIU EMMA LUCIANA
+package tema;
+
+public class Clasa1 implements Runnable {
+    private static int c=0;
+    private String Nume;
+    public Clasa1(String a) {
+        this.Nume = a;
+        c++;
+    }
+
+    public void run() {
+            int i=0;
+        while(i<c) {
+            System.out.println(Nume);
+             i++;
+                try {
+                                        Thread.sleep(1000); //afisam la 1000milisecunde
+                                } catch (InterruptedException e) {
+                                        // TODO Auto-generated catch block
+                                        e.printStackTrace();
+                                }
+         
+        }
+    }
+
+    public static void main(String[] args) {
+        Clasa1 obj1 = new Clasa1("Primul");
+        Clasa1 obj2 = new Clasa1("Al doilea");
+        Thread t1 = new Thread(obj1); 
+        Thread t2 = new Thread(obj2);
+        t1.start();
+        t2.start();
+        //System.out.println(c);
+    }
+}
+...............................................................................................................................................
+/2. Scrieti o aplicatie //Java in care un fir de executie genereaza 30 numere aleatoare intre 0 si 30 
+//si un alt fir de executie
+//afiseaza aria cercului cu raza generata de primul fir de executie, daca aceasta
+//raza este divizibila cu 3. 
+//FERENTIU EMMA LUCIANA
+package tema;
+import java.util.Random;
+
+
+    class MyThread1 extends Thread //punem 30 de valori aleatorii intr-un tablou
+    { Random rand= new Random();
+    static int[] valori= new int[30];
+    
+    public void run( ){ 
+    for(int i=0;i<30;i++)
+    { int randomNumber = rand.nextInt(31);
+    System.out.println(randomNumber);
+      valori[i]=randomNumber;
+    }
+    }
+    }
+    class MyThread2 extends Thread
+    { 
+    double raza;
+    public void run( ){ 
+    for(int i=0;i<30;i++) //verificam daca aria e divizibila cu 3
+    {  raza=3.14*MyThread1.valori[i]*MyThread1.valori[i];
+      if(raza%3==0)
+       {
+       System.out.println(raza);
+       }
+    }
+    
+    }
+    }
+   
+    public class Clasa1
+    {
+      public static void main(String[ ] args)
+      {
+    Thread thread1 = new MyThread1(); //primul fir de executie
+    Thread thread2 = new MyThread2(); //al doilea fir de executie
+    thread1.start( );
+    thread2.start( );
+       }
+      }
+.........................................................................................................................................
+// Scrieti o clasa pentru determinarea unui element din sirul lui Fibonacci. 
+//In clasa vor fi 2 metode, una care calculeaza
+//valoarea elementului si alta care afiseaza acea valoare. Folositi mecanismul de multithreading cu sincronizare, astfel
+//incat in timp ce un fir de executie realizeaza calculul, celalalt sa afiseze valorile intermediare (toate componentele sirului
+//pana la elementul calculat)
+//FERENTIU EMMA LUCIANA
+package tema;
+import java.util.Random;
+public class Clasa1
+{ public static synchronized int f(int n) {
+    if (n <= 1) {
+        return n;
+    }
+    return f(n-1) + f(n-2); //fiecare nr fibonacci e compus din fostele 2 valori din sir
+}
+public static  synchronized void fafisare(int d, int a, int b) {
+    if (d<= 0) {
+        return;
+    }
+    int c = a + b;
+    System.out.print(c + " ");
+    fafisare(d - 1, b, c); //calculeaza recursiv valorile, d fiind pozitia pana unde avem 
+    //nevoie sa calculeze si b si c sunt numerele anterioare, initial 0 si 1
+}
+   
+   
+      public static void main(String[ ] args)
+      {
+              Thread fir1 = new Thread(new Runnable() {
+                     
+                     public void run() {
+                             int a=f(10);
+                        f(10);
+                        System.out.println(a);
+                     }
+                  });
+                  Thread fir2 = new Thread(new Runnable() {
+                     
+                     public void run() {
+                        fafisare(9,0,1);
+                     }
+                  });
+                  fir1.start();
+                  fir2.start();
+               }
+  
+       }
+....................................................................................................................................................
+//Creați o aplicație Java ce folosește accesul sincronizat la metode pentru excludere mutuală. Creați 3 fire de execuție
+//ce apelează simultan metode de incrementare și decrementare a unei variabile dintr-o altă clasă. Verificați dacă
+//rezultatele sunt cele așteptate. Eliminați blocurile sincronizate și re-evaluați rezultatele.
+//FERENTIU EMMA LUCIANA
+package tema;
+import java.util.Random;
+ class Operatii
+{   private  double n=0;
+         public   double incrementare() {
+    
+    return n++;
+}
+public  synchronized double decrementare() {
+  return n--;
+}
+public synchronized  double getvaloarea()
+{ return n;
+}
+}
+   
+   public class Clasa1
+   {
+      public static void main(String[ ] args) throws InterruptedException
+      {  Operatii val= new Operatii();
+             
+              Thread fir1 = new Thread(new Runnable() {
+                     
+                     public void run() {
+                             for(int i=0;i<100;i++)
+                                   val.incrementare();
+                            
+                     }
+                  });
+                  Thread fir2 = new Thread(new Runnable() {
+                     
+                     public void run() {
+                             for(int j=0;j<50;j++)
+                              val.decrementare();
+                             
+                     }
+                  });
+                  Thread fir3 = new Thread(new Runnable() {
+                      
+                      public void run() {
+                              for(int k=0;k<20;k++)
+                               val.decrementare();
+                              
+                      }
+                   });
+                  fir1.start();
+                  fir2.start();
+                  fir3.start();
+                  fir1.join(); //avem nevoie de throws InterruptedException si de join pentru ca programul sa astepte sa fie finalizat un anumit fir 
+                  fir2.join();
+                  fir3.join();
+                  //daca nu folosim blocuri sincronizate valoriile sunt uneori eronate
+                  System.out.print(val.getvaloarea()+" ");
+               }
+  
+       }
+...................................................................................................................................................
+//Scrieți o aplicație Java ce calculează cel mai mare divizor comun a două numere mari (>100.000).
+//Aplicația va citi de la
+//tastatură în mod continuu perechi de câte două numere și va lansa în execuție câte un thread 
+//pentru fiecare pereche
+//citită. Rezultatele vor fi afișate în consolă în momentul finalizării metodei de calcul a cmmdc.
+//FERENTIU EMMA LUCIANA
+package tema;
+import java.math.BigInteger;
+import java.util.Random;
+import java.util.Scanner;
+
+   
+   public class Clasa1
+   {
+           public static BigInteger cmmdc(BigInteger a, BigInteger b) {
+                  while(a.compareTo(b)!=0) {
+                    if (a.compareTo(b) > 0) {
+                        a = a.subtract(b);
+                    } else {
+                        b = b.subtract(a);
+                    }
+                  }
+
+
+                return a;
+           }
+
+   
+      public static void main(String[ ] args) throws InterruptedException
+      {  Scanner scanner = new Scanner(System.in);
+              while (true) {
+              System.out.print("Scrieti un numar: ");
+              BigInteger a = scanner.nextBigInteger();
+
+              System.out.print("Scrieti al doilea numar: ");
+              BigInteger b = scanner.nextBigInteger();
+                  Thread fir1 = new Thread(new Runnable() {
+                     
+                     public void run() {
+                            BigInteger d= cmmdc(a,b);
+                            System.out.println(" Cmmdc dintre " + a + " si " + b + " este " + d);
+                            
+                     }
+                  });
+                  
+                  fir1.start();
+                  fir1.join(); //avem nevoie de throws InterruptedException si de join pentru ca programul sa astepte sa fie finalizat un anumit fir 
+              }
+                 
+               }
+  
+       }
+   
+      
+
+
+
+

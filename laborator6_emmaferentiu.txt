@@ -1,0 +1,375 @@
+//1. Scrieti un program Java care defineste un sir de valori de tip double care
+//vor fi citite de la tastatura. Tratati exceptia
+//data de accesarea unui element cu index negativ sau mai mare decat indexul 
+//ultimului element din sir
+//(ArrayIndexOutOfBoundsException). Afisati un mesaj corespunzator in momentul 
+//detectarii exceptiei. Considerati o
+//matrice (cu numar de coloane fix pentru fiecare linie) si tratati exceptia
+//posibil a aparea. Considerati si cazul in care
+//matricea are numar diferit de coloane la fiecare linie.
+//FERENTIU EMMA LUCIANA
+package tema;
+import java.util.Scanner;
+public class labora6 {
+        public static void main(String[] args) {
+                
+                
+                double[][] primamatrice;
+                double[][] adouamatrice;
+                double[] tablou;
+                System.out.println("Introduceti numarul de valori citite ");
+                Scanner in = new Scanner(System.in);
+                        int a= in.nextInt();
+                        tablou = new double[a];
+                        System.out.println("Introduceti valorile ");
+                        for (int j=0; j<a; j++) {
+                                tablou[j] = in.nextDouble();
+                        }
+                        System.out.println("Introduceti index-ul unei valori ");
+                        int i = in.nextInt();
+                        try {
+                                System.out.println("Valoarea cu indexul" + i + "este " + tablou[i]);
+                        }
+                        catch (ArrayIndexOutOfBoundsException e) {
+                                System.out.println("Index-ul introdus e negativ  sau mai mare decat nr de valori");
+                        }
+                        //finally {
+                        //        System.out.println("Finally");
+                        //}
+
+                        
+                        System.out.println("Introduceti elementele unei matrice 2x2");
+                        primamatrice = new double[2][2];
+                        for (i = 0; i<2; i++) {
+                                for (int j = 0; j<2; j++)
+                                        primamatrice[i][j] = in.nextDouble();
+                        }
+                        System.out.println("Introduceti index-ul valorii din matrice pe care doriti sa o vedeti ");
+                        i = in.nextInt();
+                        int j = in.nextInt();
+                        try {
+                                System.out.println("Elementul de pe randul " + i + " si coloana " + j + " este " + primamatrice[i][j]);
+                        }
+                        
+                        catch(ArrayIndexOutOfBoundsException e) {
+                                System.out.println("Index-ul e prea mare sau negativ.");
+                        }
+                        
+                        //finally {
+                        //        System.out.println("Finally...");
+                        //}
+                        
+                        System.out.println("Introduceti nr de linii");
+                        int m = in.nextInt();
+                        adouamatrice = new double[m][];
+                        for (i=0; i<m; i++) {
+                                System.out.println("Cate elemente are linia" + (i+1));
+                                int n = in.nextInt();
+                                adouamatrice[i] = new double[n];
+                                System.out.println("puneti elementele ");
+                                for (j=0; j<n; j++)
+                                        adouamatrice[i][j] = in.nextDouble();
+                        }
+                        System.out.println("Introduceti index-ul valorii din matrice pe care doriti sa o vedeti ");
+                        i = in.nextInt();
+                        j = in.nextInt();
+                        try {
+                                System.out.println("Elementul de pe randul " + i + " si coloana " + j + " este " + primamatrice[i][j]);
+                        }
+                        
+                        catch(ArrayIndexOutOfBoundsException e) {
+                                System.out.println("Index-ul e prea mare sau negativ.");
+                        }
+                        
+                        in.close();
+                }
+        }
+        
+.......................................................................................................................................
+//2. Scrieți o aplicație Java care, în cadrul metodei main( ), conține
+//o secvență de cod care poate să lanseze excepții de tip
+//ArithmeticException, ArrayIndexOutOfBoundsException, NullPointerException,
+//NumberFormatException și altele pe care
+//considerați că e util să le testați. Afișați în cadrul blocurilor catch 
+//mesajul generat de aceste excepții. În blocul finally,
+//afișați mesajul ”Am prins sau nu excepții”.
+package tema;
+import java.util.Scanner;
+        import java.util.InputMismatchException;
+        import java.util.Scanner;
+
+        public class labora6 {
+                
+                public static void main(String[] args) {
+                        double primamatrice[][];
+                        System.out.println("Introduceti nr de numere ");
+                        Scanner in = new Scanner(System.in);
+                        int[] tablou = null;
+                        try {
+                                tablou = new int[in.nextInt()];
+                        }
+                        catch(InputMismatchException e) {
+                                System.out.println("Nu e un tip de date valid.");
+                        }
+                        catch(NullPointerException e) {
+                                System.out.println("tabloul e nul.");
+                        }
+                        finally {
+                                System.out.println("Am prins sau nu exceptii");
+                        }
+                        System.out.println("Introduceti elementele unei matrice 2x2");
+                        primamatrice = new double[2][2];
+                        for (int i = 0; i<2; i++) {
+                                for (int j = 0; j<2; j++)
+                                        primamatrice[i][j] = in.nextDouble();
+                        }
+                        System.out.println("Introduceti index-ul valorii din matrice pe care doriti sa o vedeti ");
+                    int i = in.nextInt();
+                        int j = in.nextInt();
+                        try {
+                                System.out.println("Elementul de pe randul " + i + " si coloana " + j + " este " + primamatrice[i][j]);
+                        }
+                        
+                        catch(ArrayIndexOutOfBoundsException e) {
+                                System.out.println("Index-ul e prea mare sau negativ.");
+                        }
+                         try {  
+                                 System.out.println("Introduceti 2 valori ");
+                                     i = in.nextInt();
+                                         j = in.nextInt();
+                                         int rezultat = i/j;
+                        } catch (ArithmeticException e) {
+                            System.out.println("A apărut o excepție de tipul ArithmeticException: " );
+                        }
+                        finally {
+                                System.out.println("Am prins sau nu exceptii");
+                        }
+                        in.close();
+                        
+                }  
+..............................................................................................................................................
+//3. Definiți un pachet care declară interfața Int1 (2 variabile întregi și o metodă numita sum( ) care returnează suma a doi
+//întregi). În pachet mai există clasa Class1 (2 variabile protected de tip double, constructor, metode accesor și mutator
+//pentru variabilele din clasă). În alt fișier sursă se adaugă în același pachet o nouă interfață numită Int2 (2 variabile de tip
+//double și o metodă numită product( ) care returnează produsul a două valori de tip double).
+//Într-un fișier sursă distinct, importați tot ce conține pachetul definit anterior și definiți o clasă numită Class2 care este
+//derivată din Class1 și care implementează ambele interfețe Int1 și Int2. Instanțiați Class2 și aplicați metodele disponibile
+//pentru a calcula suma și produsul unor variabile citite de la tastatură.
+//FERENTIU EMMA LUCIANA
+package tema;
+import java.util.Scanner;
+        import java.util.InputMismatchException;
+        import java.util.Scanner;
+        public interface Int1 {
+                int x=1,y=2;
+                int sum(int a,int b);
+        }
+
+
+        //public interface Int2 {
+        //        double product(double a, double b);
+//a 2lea fisier
+        
+        package tema;
+        public class Class1 {
+                protected double a;
+                protected double b;
+                
+                protected Class1(){
+                        this.a = 0;
+                        this.b = 0;
+                }
+                
+                protected Class1(double x, double y){
+                        this.a = x;
+                        this.b = y;
+                }
+                
+                public double getA() {
+                        return a;
+                }
+                
+                public void setA(double x) {
+                        this.a = x;
+                }
+                
+                public double getB() {
+                        return b;
+                }
+                
+                public void setB(double y) {
+                        this.b = y;
+                }
+                
+                
+        }
+//al 3lea fisier
+        package tema;
+
+        public interface Int2 {
+            double a = 2;
+            double b = 50;
+
+            double product(double x, double y);
+        }
+//al 4lea fisier
+        package tema;
+
+        import java.util.InputMismatchException;
+        import java.util.Scanner;
+
+        class Class2 extends Class1 implements Int1, Int2{
+                
+                Class2(){
+                        super();
+                }
+                
+                Class2(double a, double b){
+                        super(a, b);
+                }
+
+                public double product(double a, double b) {
+                        return a*b;
+                }
+
+                public int sum(int a, int b) {
+                        return a+b;
+                }
+                
+                
+                
+        }
+//al 5lea fisier
+                package mypackage;
+
+                import java.util.Scanner;
+
+                public class labora6 {
+                    public static void main(String[] args) {
+                        Scanner scanner = new Scanner(System.in);
+                        System.out.print("Introduceti 2 numere ");
+                        double num1 = scanner.nextDouble();
+                        double num2 = scanner.nextDouble();
+
+                        Class2 obj = new Class2(num1, num2);
+
+                        int sum = obj.sum(Int1.x, Int1.y);
+                        System.out.println("Suma dintre " + Int1.x + " si " + Int1.y + " este " + sum);
+
+                        double product = obj.product(Int2.a, Int2.b);
+                        
+                
+        }
+...........................................................................................................
+//5. Scrieți o aplicație ce verifică dacă 3 puncte aleatoare formează un triunghi obtuzunghic. Dacă nu este îndeplinită
+//condiția, se aruncă o excepție specifică: TriunghiAscutitunghic, TriunghiDreptunghic. Dacă cele 3 puncte se află pe
+//aceeași dreaptă sau dacă segmentele pe care le determină nu pot forma un triunghi, se aruncă o excepție
+//TriunghiImposibil, iar în blocul catch aferent, se afișează un mesaj corespunzător și se aruncă o excepție de tip
+//RuntimeException.
+//FERENTIU EMMA LUCIANA
+package tema;
+class Point{
+        
+        public double x;
+        public double y;
+
+        Point(){
+                x = 0;
+                y = 0;
+        }
+        
+        Point (double x, double y){
+                this.x = x;
+                this.y = y;
+        }
+}
+
+class TriunghiImposibil extends Exception{
+        public TriunghiImposibil() {
+                super("Triunghi imposibil exceptie generata...");
+        }
+}
+
+class TriunghiAscutitunghic extends Exception{
+        public TriunghiAscutitunghic() {
+                super("Triunghi ascutitunghic exceptie generata...");
+        }
+}
+
+class TriunghiDreptunghic extends Exception{
+        public TriunghiDreptunghic() {
+                super("Triunghi dreptunghic exceptie generata...");
+        }
+}
+
+
+class Exceptii{
+         private double distance(Point p1, Point p2) {
+                double dx = p1.x - p2.x;
+                double dy = p1.y - p2.y;
+                return Math.sqrt(dx * dx + dy * dy);
+            }
+
+        void Test(Point a, Point b, Point c) throws TriunghiImposibil, TriunghiAscutitunghic, TriunghiDreptunghic{
+                
+                double s1=0,s2=0,s3=0;
+          double l1 = distance(a, b);
+              double l2= distance(b, c);
+            double l3= distance(c, a);
+
+                double max = Math.max(Math.max(l1,l2), l3);
+                double ipotpatrat= max*max;
+                double z=0;
+                if(max==l1)
+                {
+                        z= l2*l2+l3*l3;
+                }
+                if(max==l2)
+                {
+                        z=l1*l1+l3*l3;
+                }
+                if(max==l3)
+                {
+                        z=l1*l1+l2*l2;
+                }
+                if((a.x == b.x && b.x == c.x) || (a.y==b.y && b.y==c.y))
+                        throw new TriunghiImposibil();
+                else if(z==ipotpatrat)
+                        throw new TriunghiDreptunghic();
+                else if(z>ipotpatrat)
+                        throw new TriunghiAscutitunghic();
+                else
+                        System.out.println("Punctele formeaza un triunghi obtuz");
+        }
+        
+}
+
+
+
+public class labora6 {
+
+        
+        static Point a = new Point(2,8);
+        static Point b = new Point(1,9);
+        static Point c = new Point(0,0);
+        public static void main(String[] args) {
+                
+                Exceptii ob = new Exceptii();
+                try {
+                        ob.Test(a, b, c);
+                }
+                catch (TriunghiImposibil e) {
+                        System.out.println("Aceste puncte nu pot forma un triunghi!");
+                        throw new RuntimeException("Triunghi imposibil");
+                }
+                catch(TriunghiDreptunghic e) {
+                        e.printStackTrace();
+                }
+                catch(TriunghiAscutitunghic e) {
+                        e.printStackTrace();
+                }
+                
+
+        }
+
+}

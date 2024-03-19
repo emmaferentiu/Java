@@ -1,0 +1,310 @@
+//1’’. Folosiți structura de la 1’ și implementați expresii lambda
+//pentru definirea operațiilor aritmetice. Verificați
+//funcționalitatea.
+
+//FERENTIU EMMA LUCIANA
+package tema;
+
+import java.lang.Math;
+interface Inmultire{ 
+double Inm(double x, double y); }
+interface Impartire{
+double Imp1(double x, double y); }
+interface Scadere{
+double Sc(double x, double y); }
+interface Adunare{
+public double Adu(double x, double y);
+}
+//4 interfete pt metode
+
+
+class C implements Inmultire, Impartire, Scadere, Adunare{
+ //implementam metodele
+public double Inm(double x, double y){
+            return x*y;
+}
+public double Imp1(double x, double y){
+    return x/y; 
+}
+public double Sc(double x, double y){
+    return x-y; 
+}
+public double Adu(double x, double y){
+    return x+y; 
+}
+public double rad(double x, double y){
+   return Math.sqrt(x);
+}
+public double put(double x, double y){
+           return Math.pow(x,y);
+}
+
+
+
+}
+class Tema{
+public static void main(String bd[]){
+//expresii lambda
+Inmultire inmul = (d, b) -> d + b;
+Impartire impar= (a, b) -> a / b;
+Scadere scad = (a, b) -> a - b;
+Adunare adun= (a,b) -> a+b;
+double d=6;
+double b=3;
+//afisam rezultatele
+System.out.println("adunarea numerelor" + adun.Adu(d,b));
+System.out.println("scaderea  numerelor" + scad.Sc(d,b));
+System.out.println("inmultirea numerelor" + inmul.Inm(d,b));
+System.out.println("imapartirea numerelor" + impar.Imp1(d,b));
+}
+}
+..........................................................................................................................................................
+//1’. În loc de o interfață care conține toate metodele menționate anterior, 
+//să se implementeze 4 interfețe funcționale,
+//câte una pentru fiecare metodă.
+//Interfețele vor fi implementate în cadrul unei singure clase. 
+//Instanțiați clasa și verificați operațiile implementate.
+//FERENTIU EMMA LUCIANA
+package tema;
+
+import java.lang.Math;
+interface Inmultire{ 
+double Inm(double x, double y); }
+interface Impartire{
+double Imp1(double x, double y); }
+interface Scadere{
+double Sc(double x, double y); }
+interface Adunare{
+public double Adu(double x, double y);
+}
+//4 interfete pt metode
+
+
+class C implements Inmultire, Impartire, Scadere, Adunare{
+ //implementam metodele
+public double Inm(double x, double y){
+            return x*y;
+}
+public double Imp1(double x, double y){
+    return x/y; 
+}
+public double Sc(double x, double y){
+    return x-y; 
+}
+public double Adu(double x, double y){
+    return x+y; 
+}
+public double rad(double x, double y){
+   return Math.sqrt(x);
+}
+public double put(double x, double y){
+           return Math.pow(x,y);
+}
+
+
+
+
+
+
+}
+class Tema{
+public static void main(String bd[]){
+C var = new C();
+double d=6;
+double b=3;
+//afisam rezultatele
+System.out.println("Inmultirea numerelor" + var.Inm(d,b));
+System.out.println("Impartirea numerelor" + var.Imp1(d,b));
+
+System.out.println("Scadere numerelor" + var.Sc(d,b));
+System.out.println("Adunarea numerelor" + var.Adu(d,b));
+
+
+}
+}
+........................................................................................................................................................
+//1. Să se implementeze o interfață Java care conține prototipurile metodelor de adunare, scădere, înmulțire, împărțire,
+//radical și ridicare la putere. Toate metodele vor avea doi parametri de tip double și vor specifica tipul returnat double.
+//Implementați interfața astfel încât operațiile să fie definite în cadrul unei clase. Instanțiați clasa și verificați operațiile
+//implementate. 
+//FERENTIU EMMA LUCIANA
+package tema;
+import java.util.Scanner;
+
+import java.lang.Math;
+interface Int1{ //acesta este un prototip de metoda
+double Inm(double x, double y);
+double Imp1(double x, double y);
+double Sc(double x, double y);
+public double Adu(double x, double y);
+public double rad(double x, double y);
+public double put(double x, double y);
+}
+
+
+class Cl implements Int1{
+ //implementam metodele
+public double Inm(double x, double y){
+            return x*y;
+}
+public double Imp1(double x, double y){
+    return x/y; 
+}
+public double Sc(double x, double y){
+    return x-y; 
+}
+public double Adu(double x, double y){
+    return x+y; 
+}
+public double rad(double x, double y){
+   return Math.sqrt(x);
+}
+public double put(double x, double y){
+           return Math.pow(x,y);
+}
+
+
+
+
+
+
+}
+class Tema{
+public static void main(String a[]){
+Cl exemplu = new Cl();
+double d=5.5, b=4;
+//afisam rezultatele
+System.out.println("Inmultirea numerelor" + exemplu.Inm(d,b));
+System.out.println("Impartirea numerelor" + exemplu.Imp1(d,b));
+System.out.println("Scadere numerelor" + exemplu.Sc(d,b));
+System.out.println("Adunarea numerelor" + exemplu.Adu(d,b));
+System.out.println("Radical din primul numar" + exemplu.rad(d,b));
+System.out.println("Ridicarea la putere " + exemplu.put(d,b));
+
+}
+}
+..........................................................................................................................................
+//2. Definiți o interfață denumită FormaGeometrica care are 2 metode 
+//care primesc ca parametru o valoare integer și
+//returnează o valoare double reprezentînd aria, respectiv perimetrul unei forme geometrice echilaterale.
+//Implementați interfața în 3 clase distincte pentru forme concrete de tip 
+//pătrat, triunghi echilateral și hexagon regulat.
+//Se preiau datele pentru un număr N de forme geometrice de fiecare tip.
+//Să se calculeze aria și perimetrul total al formelor geometrice, 
+//ținând cont că acestea nu se suprapun.
+//FERENTIU EMMA LUCIANA
+package tema;
+import java.util.Scanner;
+import java.lang.Math;
+interface FormaGeometrica{ 
+double A(Integer x); 
+double P(Integer x); }
+
+//interfata pt metode
+
+
+class patrat implements FormaGeometrica{
+ //implementam metodele
+        public double A(Integer x)
+        {
+                return x*x;
+        }
+        public double P(Integer x)
+        {
+                return x*4;
+        }
+
+}
+class triunghi implements FormaGeometrica{
+         //implementam metodele
+                public double A(Integer x)
+                {
+                        return (x*x*Math.sqrt(3))/4;
+                }
+                public double P(Integer x)
+                {
+                        return x*3;
+                }
+
+        }
+class hexagon implements FormaGeometrica{
+         //implementam metodele
+                public double A(Integer x)
+                {
+                        return (x*x*Math.sqrt(3)*3)/2;
+                }
+                public double P(Integer x)
+                {
+                        return x*6;
+                }
+
+        }
+class Tema{
+        static Scanner in=new Scanner(System.in);
+public static void main(String bd[]){
+//expresii lambda
+int N;
+Integer l;
+double ar=0;
+double pe=0;
+patrat Ob1= new patrat();
+triunghi Ob2= new triunghi();
+hexagon Ob3= new hexagon();
+//afisam rezultatele
+System.out.println("Introduceti nr N de forme geometrice de fiecare tip: ");
+ N=in.nextInt();
+ for(int i=0;i<N;i++)
+ {
+         System.out.println("Introduceti valoarea laturii ( in m)  ");
+         l=in.nextInt();
+         ar=ar+Ob1.A(l)+Ob2.A(l)+Ob3.A(l);
+         pe=pe+Ob1.P(l)+Ob2.P(l)+Ob3.P(l);
+ }
+         
+
+System.out.println("Aria totala a formelor este  " + ar + "m^2");
+System.out.println("Perimetrul total al formelor este " + pe + "m");
+}
+}
+.........................................................................................................................
+//5. Definiți un sir de elemente de tip String. Folosind expresii lambda, 
+//ordonați-l după următoarele metode: lungime (mic-
+//>mare), inversul lungimii (mare->mic), ordine alfabetică, șirurile
+//de caractere ce încep cu litera M vor fi primele, urmate
+//de restul șirurilor.
+
+//FERENTIU EMMA LUCIANA
+package tema;
+import java.util.Scanner;
+import java.lang.Math;
+import java.util.Arrays;
+import java.util.Comparator;
+
+public class Tema {
+    public static void main(String[] args) {
+        String[] sirul = {"Mare", "Soare", "Plaja", "Vacanta", "Cald"};
+        System.out.println("Ordonare de la cel mai scurt la cel mai lung " + Arrays.toString(sirul));
+        Arrays.sort(sirul, (s1, s2) -> s2.length() - s1.length());
+
+       
+        System.out.println("Ordonare de la cel mai  lung la cel mai scurt " + Arrays.toString(sirul));
+        Arrays.sort(sirul, (s1, s2) -> s1.compareTo(s2));
+          //retureaza o val poz daca al doilea sir e alfabetic inaintea primului
+        //aceasta valoare e folosita pentru sortare
+        System.out.println("Ordonare alfabetica " + Arrays.toString(sirul));
+        
+        Arrays.sort(sirul, (s1, s2) -> 
+        {
+                char primulchar1 = s1.charAt(0);
+                char aldoileachar2 = s2.charAt(0); //comparam prima litera si vedem daca e M
+                 if (primulchar1== 'M' && aldoileachar2 != 'M') {
+                        return -1;
+                    } else if (primulchar1 != 'M' && aldoileachar2 == 'M') {
+                        return 1;
+                    } else {
+                        return s1.compareTo(s2);
+                    }
+                });
+        System.out.println("Incepand cu cele cu litera M " + Arrays.toString(sirul));
+    }
+}
